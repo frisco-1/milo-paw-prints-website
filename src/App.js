@@ -1,24 +1,21 @@
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+import ProductCustomizer from './pages/dtf';
+import NotFound from './pages/NotFound';
 
 import './App.css';
 
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dtf" element={<ProductCustomizer />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
 
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
   );
 }
 
