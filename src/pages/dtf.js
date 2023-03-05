@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import colors from './T-ShirtCustomizer/100-Cotton_Colors';
 
 function ProductCustomizer() {
 
@@ -69,16 +70,22 @@ function ProductCustomizer() {
 
         <h2> Color:</h2>
         {ProductOption === 'T-Shirt' && tshirtMaterial === "100% Cotton" && (
-          <div><h1>HI 22</h1>
-
-            <button onClick={() => handleProductColorChange('white')}>White</button>
-            <button onClick={() => handleProductColorChange('black')}>Black</button>
-            <button onClick={() => handleProductColorChange('red')}>Red</button>
+          <div>
+            {colors.map((color) => (
+              <button
+                key={color.name}
+                onClick={() => handleProductColorChange(color.name)}
+                className="color-button"
+              >
+                <span className="button-color" style={{ backgroundColor: color.hex }}></span>
+                <span className="button-text">{color.name}</span>
+              </button>
+            ))}
+            <p>Selected Color: {productColor}</p>
           </div>
+
         )}
-        {/* <button onClick={() => handleProductColorChange('white')}>White</button>
-        <button onClick={() => handleProductColorChange('black')}>Black</button>
-        <button onClick={() => handleProductColorChange('red')}>Red</button> */}
+
         <h2>Preview:</h2>
         <div
           style={{
@@ -106,7 +113,7 @@ function ProductCustomizer() {
             <input type="text" value={text} onChange={handleTextChange} />
           </div>
           <div>
-            <h2>Preview:</h2>
+            <h2>Preview 2:</h2>
             <div style={{ backgroundColor: productColor, color: textColor, padding: '1rem' }}>
               <p>{text}</p>
             </div>
