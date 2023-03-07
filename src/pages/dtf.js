@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import colors from './T-ShirtCustomizer/100-Cotton_Colors';
 
+
+//////////////////////////////////////////
+//For now we focus on the 100% TShirts.
+//////////////////////////////////////////
+
+
+
 function ProductCustomizer() {
 
   //Product option
   const [ProductOption, setProductOption] = useState('T-Shirt');
+
   //Exclusively to T-shirts Material
   const [tshirtMaterial, setTshirtMaterial] = useState('');
 
@@ -18,7 +26,10 @@ function ProductCustomizer() {
   }
 
   //Product Colors
-  const [productColor, setProductColor] = useState('white'); //productColor = variable or option, setProductColor = sort of the function to be called.
+  const [productColor, setProductColor] = useState('White');
+  //Product Image Change
+  const [tshirtImage, setTshirtImage] = useState(require('./T-ShirtCustomizer/photos/c_100_Cotton/PC54_Ash_flat_Front_2011.jpg'));
+
 
   const [textColor, setTextColor] = useState('black');
   const [text, setText] = useState('');
@@ -26,7 +37,26 @@ function ProductCustomizer() {
   //Product Color
   function handleProductColorChange(color) {
     setProductColor(color);
+    updateTshirtImage();
   }
+
+  function updateTshirtImage(productColor, tshirtMaterial) {
+    const imageMap = {
+      '100% Cotton': {
+
+        Aquatic_Blue: 'white_100_cotton.jpg',
+        Ash: './T-ShirtCustomizer/photos/c_100_Cotton/PC54_Ash_flat_Front_2011.jpg',
+        Athletic_Heather: './T-ShirtCustomizer/photos/c_100_Cotton/PC54_athletichthr_flat_front.jpg'
+        // Add more colors here
+      },
+      // Add more materials here
+    };
+
+    const image = imageMap[tshirtMaterial][productColor];
+    return require(`./T-ShirtCustomizer/photos/c_100_Cotton/${image}`);
+  }
+
+
   function handleTextColorChange(color) {
     setTextColor(color);
   }
@@ -46,8 +76,8 @@ function ProductCustomizer() {
           <h2>Product Option:</h2>
           <select value={ProductOption} onChange={handleApparelOptionChange}>
             <option value="T-Shirt">T-Shirt</option>
-            <option value="Hoodie">Hoodie</option>
-            <option value="Sweatshirt">Sweatshirt</option>
+            {/* <option value="Hoodie">Hoodie</option>
+            <option value="Sweatshirt">Sweatshirt</option> */}
           </select>
         </div>
 
@@ -57,7 +87,7 @@ function ProductCustomizer() {
             <select value={tshirtMaterial} onChange={handleTshirtMaterialChange}>
               <option value="">Select Material</option>
               <option value="100% Cotton">100% Cotton</option>
-              <option value="50/50 Blend">50/50 Blend</option>
+              {/* <option value="50/50 Blend">50/50 Blend</option> */}
             </select>
           </div>
         )}
@@ -83,8 +113,8 @@ function ProductCustomizer() {
             ))}
             <p>Selected Color: {productColor}</p>
           </div>
-
         )}
+
 
         <h2>Preview:</h2>
         <div
@@ -97,11 +127,13 @@ function ProductCustomizer() {
             margin: '1rem 0',
           }}
         >
-
+          {/* Image Placement */}
           <div>
-
+            <h2>Image:</h2>
+            <img src={tshirtImage} alt="T-shirt" />
 
           </div>
+
           <div>
             <h2>Text Color:</h2>
             <button onClick={() => handleTextColorChange('black')}>Black</button>
