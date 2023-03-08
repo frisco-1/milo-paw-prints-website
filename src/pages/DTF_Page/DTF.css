@@ -1,0 +1,177 @@
+/* The container for the product customizer */
+.product-customizer {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The container for the left and right sections */
+.product-customizer-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+/* The left section */
+.product-customizer-left,
+.product-customizer-right {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.product-customizer-left {
+  width: 50%;
+}
+
+.product-customizer-right {
+  width: 50%;
+}
+
+/* Style the product option select element */
+.product-option {
+  margin-bottom: 0.5rem;
+}
+
+/* Style the t-shirt material select element */
+.tshirt-material {
+  margin-bottom: 1rem;
+}
+
+/* Style the quantity list */
+.quantity-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Style the quantity item */
+.quantity-item {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Style the quantity label */
+.quantity-label {
+  margin-right: 1rem;
+}
+
+/* Style the quantity button */
+.quantity-button {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Style the color list */
+.color-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Style the color item */
+.color-item {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+
+/* Style the selected color */
+.color-item.selected {
+  border-color: #333;
+}
+
+.color-button-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 10px;
+}
+
+.color-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.button-color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+
+/* Style the file input */
+.file-input {
+  margin-bottom: 1rem;
+}
+
+/* Description */
+#Description {
+  width: 100%;
+}
+
+
+/* Style the preview container */
+.upload-container {
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+
+.preview-images-container {
+  position: relative;
+  width: 100%;
+}
+
+.product-preview {
+  width: 100%;
+  height: auto;
+}
+
+#upload-container {
+  position: absolute;
+  top: 50%;
+  max-width: 200px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* Media query for mobile devices */
+@media only screen and (max-width: 600px) {
+  .product-customizer-main {
+    flex-direction: column;
+  }
+
+  .product-customizer-left {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .product-customizer-right {
+    width: 100%;
+    max-width: none;
+  }
+}

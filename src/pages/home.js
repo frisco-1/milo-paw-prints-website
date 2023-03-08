@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import Header from "./Header/header";
 
 function Home() {
   return (
     <div>
-      <h1>Home</h1>
+      <Header />
       <Link to="/dtf"> DFT</Link>
     </div >
 
