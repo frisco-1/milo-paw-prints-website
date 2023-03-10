@@ -3,6 +3,7 @@
   max-width: 500px;
 }
 
-.active-link {
+.nav-link.active {
   font-weight: bold;
+  border-bottom: 1px solid;
 }

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import colors from './T-ShirtCustomizer/100-Cotton_Colors';
 import { cottonSize, blendSizes } from './T-ShirtCustomizer/SizeAvailability';
-import Header from './Header/header';
 import { Container } from 'react-bootstrap';
 import './DTF_Page/DTF.css';
+import ModelPopup from './DTF_Page/ModelPopup';
 
 
 function ProductCustomizer() {
+  // Modal/Popup
+  const [showModal, setShowModal] = useState(true);
+  const handleClose = () => setShowModal(false);
 
   //Product option
   const [ProductOption, setProductOption] = useState('T-Shirt');
@@ -115,29 +118,32 @@ function ProductCustomizer() {
 
   return (
     <div>
-      <Header />
+      <ModelPopup show={showModal} onHide={handleClose} />
 
       <h1>Custom Apparel</h1>
 
       <Container className='product-customizer'>
         <div className='product-customizer-main'>
           <div className='product-customizer-left'>
+
+            {/* Product Option */}
             <div className='product-option'>
               <h2>Product Option:</h2>
 
-              <select value={ProductOption} onChange={handleApparelOptionChange}>
+              <select value={ProductOption} onChange={handleApparelOptionChange} className='select-button'>
                 <option value="T-Shirt">T-Shirt</option>
                 {/* <option value="Hoodie">Hoodie</option>
             <option value="Sweatshirt">Sweatshirt</option> */}
               </select>
-
+              <p>Selected Apparel: {ProductOption}</p>
             </div>
 
+            {/* T-Shirt Material */}
             {ProductOption === 'T-Shirt' && (
               <div className='tshirt-material'>
                 <h2>T-Shirt Material:</h2>
 
-                <select value={tshirtMaterial} onChange={handleTshirtMaterialChange}>
+                <select value={tshirtMaterial} onChange={handleTshirtMaterialChange} className='select-button'>
                   <option value="">Select Material</option>
                   <option value="100% Cotton">100% Cotton</option>
                   <option value="50/50 Blend">50/50 Blend</option>
@@ -145,7 +151,7 @@ function ProductCustomizer() {
               </div>
             )}
 
-            <p>Selected Apparel: {ProductOption}</p>
+
             {ProductOption === 'T-Shirt' && (
               <p>T-Shirt Material: {tshirtMaterial || 'Select Material'}</p>
             )}
@@ -160,22 +166,30 @@ function ProductCustomizer() {
                     return null;
                   }
                   return (
-                    <li key={size} className='quantity-item quantity-label'>
-                      {size}:{" "}
-                      <button className='quantity-button' onClick={() => handleSizeChange(size, sizeCount[size] - 1)}>
-                        -
-                      </button>{" "}
-                      {sizeCount[size]}{" "}
-                      <button className='quantity-button' onClick={() => handleSizeChange(size, sizeCount[size] + 1)}>
-                        +
-                      </button>
-                    </li>
+                    <>
+
+                      <li key={size} className='quantity-item quantity-label'>
+                        {size}:{" "}
+                        <button className='quantity-button' onClick={() => handleSizeChange(size, sizeCount[size] - 1)}>
+                          -
+                        </button>{" "}
+                        {sizeCount[size]}{" "}
+                        <button className='quantity-button' onClick={() => handleSizeChange(size, sizeCount[size] + 1)}>
+                          +
+                        </button>
+                      </li>
+                    </>
                   );
                 })}
               </ul>
 
+              <div>
+                <p>S: {sizeCount.S} M:{sizeCount.M} L:{sizeCount.L} XL:{sizeCount.XL} 2XL:{sizeCount['2XL']}</p>
+              </div>
+
             </div>
 
+            {/* Colors */}
             <div>
               <h2>Color:</h2>
               {tshirtMaterial === "100% Cotton" && (
@@ -185,15 +199,15 @@ function ProductCustomizer() {
                       <button
                         key={color.name}
                         onClick={() => handleProductColorChange(color.name)}
-                        className="color-button"
+                        className={`color-button`}
                       >
-                        <span className="button-color" style={{ backgroundColor: color.hex }}></span>
+                        <span className={`button-color ${color.name === productColor ? 'selected' : ''}`} style={{ backgroundColor: color.hex }}></span>
                       </button>
                     ))}
 
                   </div>
                   <div>
-                    <p className='selected'>Selected Color: {productColor}</p>
+                    <p>Selected Color: {productColor}</p>
                   </div>
 
                 </>
@@ -201,23 +215,25 @@ function ProductCustomizer() {
               )}
             </div>
 
-            {/* File Upload */}
+            {/* Add Image */}
             <div className='file-input'>
               <h2>Add Images:</h2>
-              <input type="file" accept=".png,.jpeg,.raw" onChange={handleFileChange} />
+              <input type="file" accept="image/png, image/jpeg, image/raw" onChange={handleFileChange} />
+
+              <input type="file" accept="image/png, image/jpeg, image/raw" onChange={handleFileChange} />
             </div>
 
             {/* Description */}
             <div>
               <h2>Description:</h2>
-              <textarea id="Description" name='Description'></textarea>
+              <textarea id="Description" name='Description' className='text-area' placeholder='Example: Size of image1.png, 10"x 10". Front Only'></textarea>
             </div>
 
             {/* Quote and Buy */}
             <div>
               <h2>Price & Checkout:</h2>
               <p>${price}</p>
-              <button>Checkout and Submit</button>
+              <button className="site-buttons">Checkout and Submit</button>
             </div>
           </div>
 
