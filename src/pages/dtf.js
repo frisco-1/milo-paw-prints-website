@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import colors from './T-ShirtCustomizer/100-Cotton_Colors';
 import { cottonSize, blendSizes } from './T-ShirtCustomizer/SizeAvailability';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import './DTF_Page/DTF.css';
 import ModelPopup from './DTF_Page/ModelPopup';
+import Product from './DTF_Page/Product';
+import TShirtMat from './DTF_Page/TShirtMat';
+import Quantity from './DTF_Page/Quantity';
+import Colors from './DTF_Page/Colors';
+import ImageFile from './DTF_Page/ImageFile';
+import Description from './DTF_Page/Description';
+import Price from './DTF_Page/Price';
+import Preview from './DTF_Page/Preview';
+import CartPage from './Checkout/CartPage';
 
 
-function ProductCustomizer() {
+function ProductCustomizer(props) {
   // Modal/Popup
   const [showModal, setShowModal] = useState(true);
   const handleClose = () => setShowModal(false);
@@ -65,6 +74,12 @@ function ProductCustomizer() {
       break;
   }
 
+  //Description-Textarea
+  const [description, setDescription] = useState('');
+
+
+
+
   // Price
   const [price, setPrice] = useState(0);
 
@@ -77,6 +92,24 @@ function ProductCustomizer() {
 
     //Price Function
     setPrice((prevPrice) => prevPrice + (count - sizeCount[size]) * 20);
+  };
+
+  //Cart Info
+  const [cart, setCart] = useState([]);
+
+  //Add to Cart
+  function handleAddToCart(product) { 
+    setCart([...cart, product]);
+  }
+
+  const product = {
+    ProductOption: props.ProductOption,
+    tshirtMaterial: props.tshirtMaterial,
+    sizeCount: props.sizeCount,
+    sizes: props.sizes,
+    productColor: props.productColor,
+    description: props.description,
+    price: props.price
   };
 
   //Handle File Change
@@ -118,145 +151,71 @@ function ProductCustomizer() {
 
   return (
     <div>
-      <ModelPopup show={showModal} onHide={handleClose} />
+      
 
       <h1>Custom Apparel</h1>
 
       <Container className='product-customizer'>
-        <div className='product-customizer-main'>
-          <div className='product-customizer-left'>
+        <Row>
+          <Col lg={6}>
 
-            {/* Product Option */}
-            <div className='product-option'>
-              <h2>Product Option:</h2>
+            <ModelPopup show={showModal} onHide={handleClose} />
 
-              <select value={ProductOption} onChange={handleApparelOptionChange} className='select-button'>
-                <option value="T-Shirt">T-Shirt</option>
-                {/* <option value="Hoodie">Hoodie</option>
-            <option value="Sweatshirt">Sweatshirt</option> */}
-              </select>
-              <p>Selected Apparel: {ProductOption}</p>
-            </div>
+            {/* Selection */}
+            <Product
+              ProductOption={ProductOption}
+              handleApparelOptionChange={handleApparelOptionChange}
+            />
 
-            {/* T-Shirt Material */}
-            {ProductOption === 'T-Shirt' && (
-              <div className='tshirt-material'>
-                <h2>T-Shirt Material:</h2>
+            <TShirtMat
+              ProductOption={ProductOption}
+              tshirtMaterial={tshirtMaterial}
+              handleTshirtMaterialChange={handleTshirtMaterialChange}
+            />
 
-                <select value={tshirtMaterial} onChange={handleTshirtMaterialChange} className='select-button'>
-                  <option value="">Select Material</option>
-                  <option value="100% Cotton">100% Cotton</option>
-                  <option value="50/50 Blend">50/50 Blend</option>
-                </select>
-              </div>
-            )}
+            <Quantity
+              sizes={sizes}
+              sizeCount={sizeCount}
+              handleSizeChange={ handleSizeChange}
+            />
 
+            <Colors
+              tshirtMaterial={tshirtMaterial}
+              productColor={productColor}
+              colors={colors}
+              handleProductColorChange={ handleProductColorChange}
+            />
 
-            {ProductOption === 'T-Shirt' && (
-              <p>T-Shirt Material: {tshirtMaterial || 'Select Material'}</p>
-            )}
+            <ImageFile
+              handleFileChange={handleFileChange}
+            />
 
-            {/* Quantity */}
-            <div>
-              <h2>Quantity:</h2>
+            <Description
+              description={description}
+              setDescription={setDescription }
+            />
 
-              <ul className='quantity-list'>
-                {Object.entries(sizes).map(([size, available]) => {
-                  if (!available) {
-                    return null;
-                  }
-                  return (
-                    <>
+            <Price
+              price={price}
+            />
+            <Button onClick={() => handleAddToCart(product)}>Add to Cart</Button>
 
-                      <li key={size} className='quantity-item quantity-label'>
-                        {size}:{" "}
-                        <button className='quantity-button' onClick={() => handleSizeChange(size, sizeCount[size] - 1)}>
-                          -
-                        </button>{" "}
-                        {sizeCount[size]}{" "}
-                        <button className='quantity-button' onClick={() => handleSizeChange(size, sizeCount[size] + 1)}>
-                          +
-                        </button>
-                      </li>
-                    </>
-                  );
-                })}
-              </ul>
+          </Col>
 
-              <div>
-                <p>S: {sizeCount.S} M:{sizeCount.M} L:{sizeCount.L} XL:{sizeCount.XL} 2XL:{sizeCount['2XL']}</p>
-              </div>
+          {/* Image Preview */}
+          <Col lg={6}>
 
-            </div>
+            <Preview
+              ProductOption={ProductOption}
+              tshirtMaterial={tshirtMaterial}
+              productColor={productColor}
+            />
 
-            {/* Colors */}
-            <div>
-              <h2>Color:</h2>
-              {tshirtMaterial === "100% Cotton" && (
-                <>
-                  <div className='color-list'>
-                    {colors.map((color) => (
-                      <button
-                        key={color.name}
-                        onClick={() => handleProductColorChange(color.name)}
-                        className={`color-button`}
-                      >
-                        <span className={`button-color ${color.name === productColor ? 'selected' : ''}`} style={{ backgroundColor: color.hex }}></span>
-                      </button>
-                    ))}
-
-                  </div>
-                  <div>
-                    <p>Selected Color: {productColor}</p>
-                  </div>
-
-                </>
-
-              )}
-            </div>
-
-            {/* Add Image */}
-            <div className='file-input'>
-              <h2>Add Images:</h2>
-              <input type="file" accept="image/png, image/jpeg, image/raw" onChange={handleFileChange} />
-
-              <input type="file" accept="image/png, image/jpeg, image/raw" onChange={handleFileChange} />
-            </div>
-
-            {/* Description */}
-            <div>
-              <h2>Description:</h2>
-              <textarea id="Description" name='Description' className='text-area' placeholder='Example: Size of image1.png, 10"x 10". Front Only'></textarea>
-            </div>
-
-            {/* Quote and Buy */}
-            <div>
-              <h2>Price & Checkout:</h2>
-              <p>${price}</p>
-              <button className="site-buttons">Checkout and Submit</button>
-            </div>
-          </div>
-
-
-          <div className='product-customizer-right'>
-            <h2>Preview:</h2>
-            <div className='preview-images-container'>
-              {/* Image Placement */}
-              <div className='product-container '>
-
-                {ProductOption === 'T-Shirt' && tshirtMaterial === "100% Cotton" && (
-                  <div id='t-shirt'>
-                    <img src={require(`../photos/c_100_Cotton/${productColor}_Front.jpg`)} alt="T-shirt" className='product-preview' />
-                  </div>
-                )}
-              </div>
-
-              {/* Image from upload */}
-              <div id="upload-container"></div>
-
-            </div>
-          </div>
-        </div>
+          </Col>
+          <Col>
+            <CartPage cart={cart} setCart={setCart} />
+          </Col>
+        </Row>
       </Container>
 
 

@@ -4,30 +4,6 @@
   flex-direction: column;
 }
 
-/* The container for the left and right sections */
-.product-customizer-main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 1rem;
-}
-
-/* The left section */
-.product-customizer-left,
-.product-customizer-right {
-  display: inline-block;
-  box-sizing: border-box;
-  padding: 10px;
-  border: 1px solid black;
-}
-
-.product-customizer-left {
-  width: 50%;
-}
-
-.product-customizer-right {
-  width: 50%;
-}
 
 /* Style the product option select element */
 .product-option {
@@ -158,23 +134,4 @@
   max-width: 200px;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-
-/* Media query for mobile devices */
-@media only screen and (max-width: 765px) {
-  .product-customizer-main {
-    flex-direction: column;
-  }
-
-  .product-customizer-left {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-
-  .product-customizer-right {
-    width: 100%;
-    max-width: none;
-  }
 }
