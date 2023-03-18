@@ -1,6 +1,9 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 
-function Price({ProductOption, tshirtMaterial, sizeCount, sizes, productColor, description, price}) { 
+function Price() { 
+
+  const price = useSelector(state => state.DFT.price);
 
   return (
     <>

@@ -1,6 +1,11 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 
-function Preview({ProductOption, productColor, tshirtMaterial}) { 
+function Preview() { 
+  const productOption = useSelector(state => state.DFT.productOption);
+  const productColor = useSelector(state => state.DFT.productColor);
+  const tshirtMaterial = useSelector(state => state.DFT.tshirtMaterial);
+
   return (
     <>
       <h2>Preview:</h2>
@@ -10,9 +15,9 @@ function Preview({ProductOption, productColor, tshirtMaterial}) {
         
         <div className='product-container '>
 
-          {ProductOption === 'T-Shirt' && tshirtMaterial === "100% Cotton" && (
+          {productOption === 'T-Shirt' && tshirtMaterial === "100% Cotton" && (
             <div id='t-shirt'>
-              <img src={require(`../../photos/c_100_Cotton/${productColor}_Front.jpg`)} alt="T-shirt" className='product-preview' />
+              <img src={require(`./photos/c_100_Cotton/${productColor}_Front.jpg`)} alt="T-shirt" className='product-preview' />
             </div>
           )}
         </div>

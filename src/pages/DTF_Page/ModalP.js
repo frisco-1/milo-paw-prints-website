@@ -1,10 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import React, { useState } from 'react';
 
-function ModelPopup(props) {
+function ModalP() {
+
+  const [showModal, setShowModal] = useState(true);
+  const handleClose = () => setShowModal(false);
+
   return (
     <Modal
-      {...props}
+      show={showModal}
+      onHide={setShowModal}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -48,10 +54,10 @@ function ModelPopup(props) {
 
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={handleClose}>Close</Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-export default ModelPopup;
+export default ModalP;

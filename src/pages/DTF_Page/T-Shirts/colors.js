@@ -1,4 +1,4 @@
-const colors = [
+export const cottonColors = [
   { name: "Aquatic Blue", hex: "#53BAE5" },
   { name: "Ash", hex: "#DFDEE4" },
   { name: "Athletic Heather", hex: "#B7B3BA" },
@@ -53,4 +53,3 @@ const colors = [
   { name: "Yellow", hex: "#F7DD79" }
 ];
 
-export default colors;

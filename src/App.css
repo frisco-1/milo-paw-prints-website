@@ -15,6 +15,7 @@
 .text-area {
   width: 100%;
   padding: 1rem;
+  height: 150px;
 }
 
 .site-buttons {

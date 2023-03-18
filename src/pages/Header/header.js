@@ -14,9 +14,9 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
 
-            <NavLink exact to="/" className="nav-link" >Home</NavLink>
+            <NavLink exact={true.toString()} to="/" className="nav-link" >Home</NavLink>
 
-            <NavLink exact to="/dtf" className="nav-link" >DTF</NavLink>
+            <NavLink exact={true.toString()} to="/dtf" className="nav-link" >DTF</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
